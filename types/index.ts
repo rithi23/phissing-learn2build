@@ -43,3 +43,20 @@ export type CommunityEvent = {
   location: string;
   description: string;
 };
+
+export type EventRegistration = {
+  id: string;
+  eventName: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  organization: string;
+  role: string;
+  experience?: string | null;
+  projectIdea?: string | null;
+  skills?: string | null;
+  heardFrom?: string | null;
+  dietaryNeeds?: string | null;
+  tshirtSize?: string | null;
+  createdAt: string;
+};

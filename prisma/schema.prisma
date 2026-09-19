@@ -27,3 +27,23 @@ model ParticipantInteraction {
   @@index([action])
   @@index([createdAt])
 }
+
+model EventRegistration {
+  id             String   @id @default(cuid())
+  eventName      String
+  fullName       String
+  email          String
+  phone          String
+  organization   String
+  role           String
+  experience     String?
+  projectIdea    String?
+  skills         String?
+  heardFrom      String?
+  dietaryNeeds   String?
+  tshirtSize     String?
+  createdAt      DateTime @default(now())
+
+  @@index([email])
+  @@index([createdAt])
+}

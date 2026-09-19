@@ -39,8 +39,8 @@ export default function EventsPage() {
                 {event.description}
               </p>
               <div className="mt-5">
-                <Link href="/register">
-                  <Button>Join the Community</Button>
+                <Link href="/events/register">
+                  <Button>Register for event</Button>
                 </Link>
               </div>
             </article>
