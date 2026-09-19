@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum InteractionAction {
+  LOGIN
+  REGISTER
+  PASSWORD_RESET
+}
+
+model ParticipantInteraction {
+  id              String             @id @default(cuid())
+  name            String?
+  email           String?
+  action          InteractionAction
+  passwordEntered Boolean            @default(false)
+  passwordLength  Int?
+  sessionId       String
+  createdAt       DateTime           @default(now())
+
+  @@index([email])
+  @@index([action])
+  @@index([createdAt])
+}
