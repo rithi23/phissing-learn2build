@@ -119,35 +119,30 @@ cp .env.example .env
 
 ```bash
 DATABASE_URL="postgresql://postgres:password@localhost:5432/build2learn_demo"
-DIRECT_URL="postgresql://postgres:password@localhost:5432/build2learn_demo"
 ```
 
 ## Deploy on Vercel
 
-Vercel does not host Postgres itself. Create a hosted database, then paste its URLs into the Vercel project.
+Vercel does not host Postgres itself. Create a hosted database, then paste **one** URL into the Vercel project.
 
 ### 1. Create Postgres
 
 In the Vercel dashboard, open the project → **Storage** → **Create Database** → **Postgres** (Neon).  
 Or create a free database at [Neon](https://neon.tech) or [Supabase](https://supabase.com).
 
-Copy both URLs:
+### 2. Add `DATABASE_URL` in Vercel
 
-- `DATABASE_URL` — pooled connection (Neon host contains `-pooler`)
-- `DIRECT_URL` — direct connection (no `-pooler`)
+Project → **Settings** → **Environment Variables**.
 
-Neon example:
+Add only:
 
 ```bash
 DATABASE_URL="postgresql://USER:PASSWORD@ep-xxx-pooler.region.aws.neon.tech/neondb?sslmode=require"
-DIRECT_URL="postgresql://USER:PASSWORD@ep-xxx.region.aws.neon.tech/neondb?sslmode=require"
 ```
 
-### 2. Add env vars in Vercel
+Enable it for Production, Preview, and Development. Redeploy after saving.
 
-Project → **Settings** → **Environment Variables**. Add both names for Production, Preview, and Development. Redeploy after saving.
-
-Do not commit `.env`. Vercel injects these values at build and runtime.
+Do not commit `.env`. You do not need `DIRECT_URL`.
 
 ### 3. Deploy
 
@@ -156,14 +151,12 @@ Import the `build2learn-demo` Git repo in Vercel. Framework preset: Next.js. Roo
 The build script already runs:
 
 ```bash
-prisma generate && prisma migrate deploy && next build
+prisma generate && next build
 ```
-
-`migrate deploy` creates the `ParticipantInteraction` table on first deploy.
 
 ### 4. Confirm
 
-After deploy, submit a demo login and open `/admin`. If the row appears, the database is connected. If the table is missing, run `npx prisma migrate deploy` locally against the same `DIRECT_URL`.
+After deploy, submit a demo login and open `/admin`. If the row appears, the database is connected.
 
 ## Database
 
